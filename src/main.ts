@@ -4,6 +4,9 @@ import { i18n } from "/@/i18n";
 import router from "/@/router";
 import store from "/@/store";
 
+// css
+import "normalize.css";
+
 const app = createApp(App);
 
 // 路由

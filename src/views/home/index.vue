@@ -15,24 +15,15 @@
       {{ $t("language.en") }}
     </nut-button>
   </div>
-  {{ getUserInfo }}
 </template>
 
 <script lang="ts" setup name="HomePage">
-import { computed } from "vue";
-import { useUserStore } from "/@/store/modules/user";
 import { setLang } from "/@/i18n";
 import { useI18n } from "vue-i18n";
 
 const { locale } = useI18n();
 
-const userStore = useUserStore();
-const getUserInfo = computed(() => {
-  const { name = "" } = userStore.getUserInfo || {};
-  return name;
-});
-
-const changeLang = type => {
+const changeLang = (type: string) => {
   setLang(type);
 };
 </script>
