@@ -1,3 +1,10 @@
+const path = require("path");
+
+const judgeComponent = file => {
+  const ignore = ["@nutui"];
+  return ignore.some(item => path.join(file).includes(path.join("node_modules", item)));
+};
+
 module.exports = {
   plugins: {
     autoprefixer: { overrideBrowserslist: ["Android 4.1", "iOS 7.1", "Chrome > 31", "ff > 31", "ie >= 8"] },
@@ -16,6 +23,11 @@ module.exports = {
       landscapeWidth: 1134, //横屏时使用的视口宽度
       include: [],
       exclude: [], // 设置忽略文件，用正则做目录名匹配
+      customFun: ({ file }) => {
+        // 这个自定义的方法是针对处理ui组件下的设计稿为375问题
+        const designWidth = judgeComponent(file) ? 375 : 750;
+        return designWidth;
+      },
     },
   },
 };

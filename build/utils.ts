@@ -1,4 +1,4 @@
-// Read all environment variable configuration files to process.env
+// 处理环境变量，并把所有环境变量配置到process.env
 export function wrapperEnv(envConf: Recordable): ViteEnv {
   const ret: any = {};
 
@@ -6,9 +6,6 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
     let realName = envConf[envName].replace(/\\n/g, "\n");
     realName = realName === "true" ? true : realName === "false" ? false : realName;
 
-    if (envName === "VITE_PORT") {
-      realName = Number(realName);
-    }
     if (envName === "VITE_PROXY" && realName) {
       try {
         realName = JSON.parse(realName.replace(/'/g, '"'));

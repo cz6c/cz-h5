@@ -2,6 +2,7 @@ import { createVitePlugins } from "./build/vite/plugins";
 import { resolve } from "path";
 import { ConfigEnv, loadEnv, UserConfig } from "vite";
 import { wrapperEnv } from "./build/utils";
+import { proxy } from "./build/vite/proxy";
 
 const pathResolve = (dir: string) => {
   return resolve(process.cwd(), ".", dir);
@@ -10,9 +11,11 @@ const pathResolve = (dir: string) => {
 // https://vitejs.dev/config/
 export default function ({ command, mode }: ConfigEnv): UserConfig {
   const isProduction = command === "build";
+  console.log(isProduction);
   const root = process.cwd();
   const env = loadEnv(mode, root);
   const viteEnv = wrapperEnv(env);
+  console.log(env);
 
   return {
     root,
@@ -37,6 +40,7 @@ export default function ({ command, mode }: ConfigEnv): UserConfig {
     server: {
       host: true,
       hmr: true,
+      proxy,
     },
     plugins: createVitePlugins(viteEnv, isProduction),
     build: {
@@ -53,7 +57,7 @@ export default function ({ command, mode }: ConfigEnv): UserConfig {
       preprocessorOptions: {
         scss: {
           // 配置 nutui 全局 scss 变量
-          additionalData: `@import "@nutui/nutui/dist/styles/variables.scss";@import '/@/styles/mixin.scss';`,
+          additionalData: `@import "@nutui/nutui/dist/styles/variables.scss";@import '/@/styles/index.scss';`,
         },
       },
     },

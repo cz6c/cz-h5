@@ -1,20 +1,7 @@
 <template>
-  <header class="header">
-    <img src="https://cdn.jsdelivr.net/gh/fonghehe/picture/vue-h5-template/logo.png" /><span> {{ $t("title") }}</span>
-  </header>
   <div class="intro-header">
     <div>{{ $t("introduction") }}</div>
-    <a href="https://github.com/sunniejs/vue-h5-template.git">
-      <Github />
-    </a>
   </div>
-  <nut-cell-group :title="$t('home.support')" class="supportList">
-    <nut-cell v-for="(item, index) in cellList" :key="index" :title="item">
-      <template #icon>
-        <Check />
-      </template>
-    </nut-cell>
-  </nut-cell-group>
   <nut-cell-group :title="$t('home.cssMultiLanguage')" class="supportList">
     <nut-cell>
       <div :class="['btn-confirm', locale]"></div>
@@ -36,11 +23,9 @@ import { computed } from "vue";
 import { useUserStore } from "/@/store/modules/user";
 import { setLang } from "/@/i18n";
 import { useI18n } from "vue-i18n";
-import { Github, Check } from "@nutui/icons-vue";
 
 const { locale } = useI18n();
 
-let cellList = ["vue3", "vite", "vue-router", "axios", "Pinia", "vue-i18n", "postcss-px-to-viewport", "nutUI", "eruda"];
 const userStore = useUserStore();
 const getUserInfo = computed(() => {
   const { name = "" } = userStore.getUserInfo || {};

@@ -18,7 +18,7 @@ import { ConfigImageminPlugin } from "./imagemin";
 import { ConfigVisualizerConfig } from "./visualizer";
 
 export function createVitePlugins(env: ViteEnv, isBuild: boolean) {
-  const { VITE_USE_ERUDA, VITE_USE_COMPRESS, VITE_USE_REPORT } = env;
+  const { VITE_USE_DEV, VITE_USE_COMPRESS, VITE_USE_REPORT } = env;
 
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     // vue支持
@@ -42,16 +42,16 @@ export function createVitePlugins(env: ViteEnv, isBuild: boolean) {
   vitePlugins.push(ConfigProgressPlugin());
 
   // vconsole
-  VITE_USE_ERUDA && vitePlugins.push(ConfigVConsole());
+  VITE_USE_DEV && vitePlugins.push(ConfigVConsole());
 
-  // rollup-plugin-visualizer
+  // 打包体积分析 rollup-plugin-visualizer
   VITE_USE_REPORT && vitePlugins.push(ConfigVisualizerConfig());
 
   // vite-plugin-svg-icons
   vitePlugins.push(ConfigSvgIconsPlugin(isBuild));
 
   if (isBuild) {
-    // vite-plugin-imagemin
+    // 图片压缩 vite-plugin-imagemin
     vitePlugins.push(ConfigImageminPlugin());
 
     // 开启.gz压缩  rollup-plugin-gzip

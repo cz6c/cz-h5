@@ -1,9 +1,8 @@
 import { loginPassword } from "/@/api";
-import { useCookies } from "@vueuse/integrations/useCookies";
 import { defineStore } from "pinia";
 
 const { VITE_TOKEN_KEY } = import.meta.env;
-const token = useCookies().get(VITE_TOKEN_KEY as string);
+const token = localStorage.getItem(VITE_TOKEN_KEY as string) ?? "";
 
 interface StoreUser {
   token: string;
@@ -30,6 +29,7 @@ export const useUserStore = defineStore({
         const { execute } = loginPassword();
         execute().then(res => {
           this.setInfo(res);
+          // localStorage.setItem(VITE_TOKEN_KEY as string, res.token);
           resolve(res);
         });
       });
