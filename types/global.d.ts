@@ -46,10 +46,14 @@ declare global {
   }
 
   declare interface ViteEnv {
+    VITE_NODE_ENV: "development" | "test" | "production";
+    VITE_APP_TITLE: string;
+    VITE_PORT: number;
     VITE_BASE_URL: string;
-    VITE_USE_DEV: Boolean;
-    VITE_USE_COMPRESS: Boolean;
-    VITE_USE_REPORT: Boolean;
+    VITE_PROXY: [string, string][];
+    VITE_USE_DEV: boolean;
+    VITE_USE_COMPRESS: boolean;
+    VITE_USE_REPORT: boolean;
   }
 
   declare function parseInt(s: string | number, radix?: number): number;
